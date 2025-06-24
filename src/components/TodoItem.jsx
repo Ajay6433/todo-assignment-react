@@ -1,8 +1,10 @@
 import { useState } from "react";
 function TodoItem({ todos, setTodos }) {
+    // Destructuring the todos object to get task and completed properties
     const { task, completed } = todos;
     const [isCompleted, setIsCompleted] = useState(completed);
 
+    // This function handles the toggle of the todo item between completed and not completed
     function handleToggle() {
         setIsCompleted(!isCompleted);
         setTodos((prev) =>
@@ -11,7 +13,8 @@ function TodoItem({ todos, setTodos }) {
             )
         );
     }
-
+    // This function handles the editing of the todo item
+    // It prompts the user to enter a new todo and updates the state accordingly
     function handleEdit() {
         const newTask = prompt("Edit your todo:", task);
         if (newTask && newTask.trim() !== "") {
@@ -25,7 +28,8 @@ function TodoItem({ todos, setTodos }) {
             return;
         }
     }
-
+    // This function handles the deletion of the todo item
+    // It filters out the todo item from the state based on its ID
     function handleDelete() {
         setTodos((prev) => prev.filter((todo) => todo.id !== todos.id));
     }
@@ -39,6 +43,7 @@ function TodoItem({ todos, setTodos }) {
                     onChange={() => setIsCompleted(!isCompleted)}
                     className="mr-2 h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
+                {/* This span displays the task and applies styles based on completion status */}
                 <span
                     className={`text-lg ${isCompleted ? "line-through text-gray-500" : "text-gray-900"}`}
                     onClick={handleToggle}
